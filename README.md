@@ -1,5 +1,5 @@
 
-# API Project: Timestamp Microservice for FCC
+# API Project: Timestamp Microservice for FCC (by Gregory Han)
 
 ### User stories :
 
@@ -18,4 +18,4 @@ e.g. `{"unix": 1479663089000 ,"utc": "Sun, 20 Nov 2016 17:31:29 GMT"}`.
 #### Example output:
 * { "unix": 1450137600, "natural": "December 15, 2015" }
 
-Github pages link: https://greg-han.github.io/timestampmicroservice
+Link to working project on glitch: https://sharp-lightning.glitch.me/
