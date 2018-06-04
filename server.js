@@ -15,24 +15,24 @@ app.use(express.static('public'));
 
 app.get("/api/timestamp/:datestring?",function( req, res, next){
   var emptytimestring;
-  var timestring = "";
-  if(req.params.datestring != undefined && typeof parseInt(req.params.datestring) === "number" && req.params.datestring.indexOf(".") == -1){
-    timestring = new Date(parseInt(req.params.datestring));
-  }
-  else{
-    timestring = new Date(req.params.datestring);
-  }
-  if(req.params.datestring === undefined || timestring == null){
+  var checkstring = new Date(req.params.datestring);
+  if(req.params.datestring === undefined){
    emptytimestring = new Date();
    res.json({"unix": emptytimestring.getTime(), "utc" : emptytimestring.toUTCString()});
   }
-  else if(timestring == "Invalid Date"){
+  if((checkstring == "Invalid Date" && isNaN(req.params.datestring)) || req.params.datestring.indexOf(".") != -1){
    res.json({"error" : "Invalid Date"});
   }
-  else{
-   var unixtime = new Date(req.params.datestring).getTime();
-   res.json({"unix" : unixtime,"utc" : timestring.toUTCString()});
-  }
+  if(req.params.datestring != undefined && req.params.datestring.indexOf("-") != -1){
+      console.log("I'm in here");
+      var unixtime = new Date(req.params.datestring).getTime();
+      var timestring = new Date(parseInt(req.params.datestring));
+      res.json({"unix" : unixtime,"utc" : timestring.toUTCString()});
+   }
+   else{
+     var timestring = new Date(parseInt(req.params.datestring));
+     res.json({"unix" : timestring.getTime(),"utc" : timestring.toUTCString()});
+   }
   next();
 });
 
